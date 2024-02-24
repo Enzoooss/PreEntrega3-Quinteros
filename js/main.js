@@ -1,18 +1,11 @@
 let productos = [];
 
-const obtenerRopa = async() => {
-    try{
-
-        const res = await fetch("./js/productos.json");
-        const data = await res.json()
-        cargarProductos(data);
-        
-    } catch (error) {
-        console.error('No se obtuvieron las vestimentas', error)
-    }
-
-}
-
+fetch("./js/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        cargarProductos(productos);
+    })
 
 
 const contenedorProductos = document.querySelector("#contenedor-productos");
@@ -111,5 +104,3 @@ function actualizarNumerito() {
     let nuevoNumerito = productosEnCarrito.reduce((acc, producto) => acc + producto.cantidad, 0);
     numerito.innerText = nuevoNumerito;
 }
-
-obtenerRopa();
